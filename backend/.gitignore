@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.env
+*.log
+*.pid
+*.seed
+*.pid.lock
+.DS_Store
+coverage/
+.nyc_output/
+*.tsbuildinfo
+.npm/
+.eslintcache
+.yarn-integrity
+.cache/
