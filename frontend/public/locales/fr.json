@@ -1,0 +1,315 @@
+{
+  "common": {
+    "appName": "Mario's Pizzeria",
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "retry": "Réessayer",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "save": "Enregistrer",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "close": "Fermer",
+    "back": "Retour",
+    "next": "Suivant",
+    "submit": "Soumettre",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "sort": "Trier",
+    "refresh": "Actualiser",
+    "yes": "Oui",
+    "no": "Non",
+    "ok": "OK"
+  },
+  "navigation": {
+    "home": "Accueil",
+    "menu": "Menu",
+    "cart": "Panier",
+    "orders": "Commandes",
+    "profile": "Profil",
+    "settings": "Paramètres",
+    "help": "Aide",
+    "signOut": "Se déconnecter",
+    "owner": "Propriétaire"
+  },
+  "auth": {
+    "signIn": "Se connecter",
+    "signUp": "S'inscrire",
+    "email": "Email",
+    "password": "Mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
+    "firstName": "Prénom",
+    "lastName": "Nom de famille",
+    "phone": "Numéro de téléphone",
+    "forgotPassword": "Mot de passe oublié ?",
+    "rememberMe": "Se souvenir de moi",
+    "welcomeBack": "Bon retour",
+    "createAccount": "Créer un compte",
+    "alreadyHaveAccount": "Vous avez déjà un compte ?",
+    "dontHaveAccount": "Vous n'avez pas de compte ?",
+    "signInPrompt": "Veuillez vous connecter pour continuer",
+    "signUpPrompt": "Créez un compte pour commencer",
+    "invalidCredentials": "Email ou mot de passe invalide",
+    "emailAlreadyExists": "L'email existe déjà",
+    "passwordMismatch": "Les mots de passe ne correspondent pas",
+    "passwordTooShort": "Le mot de passe doit contenir au moins 8 caractères"
+  },
+  "home": {
+    "hero": {
+      "title": "Pizzas authentiques italiennes",
+      "subtitle": "Découvrez les saveurs traditionnelles de l'Italie",
+      "cta": "Nos Pizzas",
+      "alt": "Pizzas au feu de bois"
+    },
+    "promo": {
+      "newUser": "Offre Nouveau Client",
+      "discount": "{{percent}}% de réduction sur votre première commande",
+      "useCode": "Utilisez le code : {{code}}"
+    },
+    "sections": {
+      "categories": "Parcourir par Catégorie",
+      "featured": "Nos Spécialités",
+      "whyChoose": "Pourquoi choisir {{appName}} ?"
+    },
+    "features": {
+      "fastDelivery": {
+        "title": "Livraison Rapide",
+        "description": "Recevez votre pizza en 45 minutes ou moins"
+      },
+      "easyOrdering": {
+        "title": "Commande Facile",
+        "description": "Interface mobile simple et intuitive"
+      },
+      "securePayment": {
+        "title": "Paiement Sécurisé",
+        "description": "Plusieurs options de paiement avec commande sécurisée"
+      },
+      "liveTracking": {
+        "title": "Suivi en Temps Réel",
+        "description": "Suivez votre commande en temps réel"
+      }
+    }
+  },
+  "menu": {
+    "allCategories": "Toutes",
+    "filters": "Filtres",
+    "dietaryPreferences": "Préférences Alimentaires",
+    "vegetarian": "Végétarien",
+    "vegan": "Végan",
+    "glutenFree": "Sans gluten",
+    "badges": {
+      "vegetarian": "Végé",
+      "vegan": "Végan",
+      "glutenFree": "SG"
+    },
+    "customize": "Personnaliser",
+    "addToCart": "Ajouter au Panier",
+    "added": "Ajouté !",
+    "calories": "{{count}} cal",
+    "noItems": "Aucun article trouvé",
+    "loadingCategories": "Chargement des catégories...",
+    "loadingItems": "Chargement des articles du menu...",
+    "offlineNotice": "Affichage des articles en cache. Certains articles peuvent ne pas être à jour."
+  },
+  "cart": {
+    "title": "Votre Panier",
+    "empty": {
+      "title": "Votre panier est vide",
+      "subtitle": "Ajoutez de délicieux articles de notre menu",
+      "cta": "Voir le Menu"
+    },
+    "clearCart": "Vider le Panier",
+    "clearCartConfirm": "Êtes-vous sûr de vouloir vider votre panier ?",
+    "specialInstructions": "Instructions Spéciales",
+    "promoCode": "Entrer le code promo",
+    "apply": "Appliquer",
+    "promoApplied": "Code promo \"{{code}}\" appliqué !",
+    "summary": {
+      "subtotal": "Sous-total",
+      "deliveryFee": "Frais de livraison",
+      "tax": "Taxes",
+      "total": "Total"
+    },
+    "checkout": {
+      "proceedToCheckout": "Procéder au Règlement",
+      "signInRequired": "Veuillez vous connecter pour passer votre commande"
+    }
+  },
+  "checkout": {
+    "title": "Commande",
+    "steps": {
+      "delivery": "Livraison",
+      "payment": "Paiement",
+      "confirm": "Confirmer"
+    },
+    "delivery": {
+      "title": "Adresse de Livraison",
+      "streetAddress": "Adresse",
+      "city": "Ville",
+      "state": "Région",
+      "zipCode": "Code Postal",
+      "country": "Pays",
+      "phone": "Numéro de Téléphone",
+      "instructions": "Instructions de livraison (optionnel)",
+      "continueToPayment": "Continuer vers le Paiement"
+    },
+    "payment": {
+      "title": "Méthode de Paiement",
+      "card": "Carte de Crédit/Débit",
+      "paypal": "PayPal",
+      "cash": "Paiement à la Livraison",
+      "cardNumber": "Numéro de Carte",
+      "expiryDate": "MM/AA",
+      "cvv": "CVV",
+      "cardholderName": "Nom du Porteur",
+      "reviewOrder": "Réviser la Commande"
+    },
+    "confirm": {
+      "title": "Récapitulatif de Commande",
+      "items": "Articles ({{count}})",
+      "deliveryAddress": "Adresse de Livraison",
+      "paymentMethod": "Méthode de Paiement",
+      "placeOrder": "Passer la Commande",
+      "orderPlaced": "Commande passée avec succès ! ID de commande : {{orderId}}"
+    }
+  },
+  "orders": {
+    "title": "Mes Commandes",
+    "filters": {
+      "all": "Toutes",
+      "pending": "En Attente",
+      "active": "Active",
+      "completed": "Terminée"
+    },
+    "empty": {
+      "title": "Aucune commande encore",
+      "subtitle": "Votre historique de commandes apparaîtra ici",
+      "cta": "Commencer à Commander"
+    },
+    "orderNumber": "Commande #{{id}}",
+    "moreItems": "+{{count}} articles de plus",
+    "total": "Total : {{amount}}",
+    "actions": {
+      "reorder": "Recommander",
+      "track": "Suivre la Commande",
+      "viewDetails": "Voir les Détails"
+    },
+    "tracking": {
+      "title": "Suivre la Commande #{{id}}",
+      "timeline": {
+        "placed": "Commande Passée",
+        "confirmed": "Commande Confirmée",
+        "confirmedDesc": "Le restaurant a accepté votre commande",
+        "preparing": "Préparation",
+        "preparingDesc": "Votre pizza est en cours de préparation",
+        "outForDelivery": "En Cours de Livraison",
+        "outForDeliveryDesc": "Votre commande est en route",
+        "delivered": "Livrée",
+        "estimated": "Estimée : {{time}}"
+      }
+    },
+    "details": {
+      "title": "Détails de la Commande",
+      "placedOn": "Passée le {{date}}",
+      "status": "Statut",
+      "items": "Articles",
+      "paymentSummary": "Récapitulatif du Paiement"
+    },
+    "status": {
+      "pending": "En Attente",
+      "confirmed": "Confirmée",
+      "preparing": "Préparation",
+      "ready": "Prête",
+      "outForDelivery": "En Cours de Livraison",
+      "delivered": "Livrée",
+      "cancelled": "Annulée"
+    },
+    "reorderSuccess": "Articles ajoutés au panier !",
+    "loadingOrders": "Chargement des commandes...",
+    "offlineNotice": "Affichage des commandes en cache. Certaines informations peuvent ne pas être à jour."
+  },
+  "profile": {
+    "title": "Profil",
+    "notLoggedIn": {
+      "title": "Vous n'êtes pas connecté",
+      "subtitle": "Connectez-vous pour accéder à votre profil et historique de commandes",
+      "cta": "Se Connecter"
+    },
+    "sections": {
+      "personalInfo": "Informations Personnelles",
+      "addresses": "Adresses de Livraison",
+      "security": "Sécurité",
+      "preferences": "Préférences"
+    },
+    "form": {
+      "firstName": "Prénom",
+      "lastName": "Nom de Famille",
+      "email": "Email",
+      "phone": "Téléphone",
+      "saveChanges": "Enregistrer les Modifications",
+      "saved": "Enregistré !"
+    },
+    "addresses": {
+      "addNew": "Ajouter une Nouvelle Adresse",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "deleteConfirm": "Êtes-vous sûr de vouloir supprimer cette adresse ?",
+      "setAsDefault": "Définir comme adresse par défaut",
+      "default": "Par Défaut",
+      "label": "Libellé (Optionnel)",
+      "labelPlaceholder": "Domicile, Travail, etc.",
+      "noAddresses": "Aucune adresse enregistrée",
+      "saveAddress": "Enregistrer l'Adresse",
+      "updateAddress": "Mettre à Jour l'Adresse"
+    },
+    "password": {
+      "change": "Changer le Mot de Passe",
+      "current": "Mot de Passe Actuel",
+      "new": "Nouveau Mot de Passe",
+      "confirm": "Confirmer le Nouveau Mot de Passe",
+      "mismatch": "Les mots de passe ne correspondent pas",
+      "success": "Mot de passe changé avec succès"
+    },
+    "preferences": {
+      "emailNotifications": "Notifications email",
+      "pushNotifications": "Notifications push",
+      "smsNotifications": "Notifications SMS"
+    },
+    "signOutConfirm": "Êtes-vous sûr de vouloir vous déconnecter ?"
+  },
+  "errors": {
+    "generic": "Quelque chose s'est mal passé. Veuillez réessayer.",
+    "network": "Erreur réseau. Veuillez vérifier votre connexion.",
+    "notFound": "Page non trouvée",
+    "unauthorized": "Vous n'êtes pas autorisé à accéder à cette ressource",
+    "forbidden": "Accès interdit",
+    "serverError": "Erreur serveur. Veuillez réessayer plus tard.",
+    "validationError": "Veuillez vérifier votre saisie et réessayer",
+    "loadFailed": "Échec du chargement de {{resource}}",
+    "saveFailed": "Échec de l'enregistrement de {{resource}}",
+    "deleteFailed": "Échec de la suppression de {{resource}}"
+  },
+  "offline": {
+    "indicator": "Hors ligne",
+    "notice": "Vous êtes actuellement hors ligne",
+    "willSync": "Les modifications seront synchronisées lorsque vous serez de nouveau en ligne"
+  },
+  "customization": {
+    "title": "Personnaliser {{itemName}}",
+    "required": "Obligatoire",
+    "optional": "Optionnel",
+    "specialInstructions": "Instructions Spéciales",
+    "instructionsPlaceholder": "Ajoutez des demandes spéciales...",
+    "quantity": "Quantité",
+    "total": "Total"
+  },
+  "time": {
+    "minutes": "{{count}} min",
+    "hours": "{{count}} h",
+    "days": "{{count}} jour",
+    "justNow": "À l'instant",
+    "minutesAgo": "il y a {{count}} minutes",
+    "hoursAgo": "il y a {{count}} heures",
+    "daysAgo": "il y a {{count}} jours"
+  }
+}
