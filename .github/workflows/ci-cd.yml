@@ -53,10 +53,29 @@ jobs:
 
     - name: Setup test environment
       run: |
-        cp .env.example .env
-        # Use generated secrets from previous step
-        sed -i 's/your-super-secure-jwt-secret-here-64-chars-minimum/test-jwt-secret-for-ci-only-not-for-production-use/' .env
-        sed -i 's/your-super-secure-refresh-secret-here-64-chars-minimum/test-refresh-secret-for-ci-only-not-for-production/' .env
+        # Create .env file with test values for CI
+        cat > .env << EOF
+        # Database Configuration
+        POSTGRES_USER=postgres
+        POSTGRES_PASSWORD=postgres
+        POSTGRES_DB=foodflow_test
+        
+        # JWT Configuration (test values for CI)
+        JWT_SECRET=test_jwt_secret_for_ci_testing_only_minimum_32_characters_long
+        JWT_REFRESH_SECRET=test_jwt_refresh_secret_for_ci_testing_only_minimum_32_chars
+        
+        # Redis Configuration
+        REDIS_PASSWORD=
+        
+        # Application Configuration
+        NODE_ENV=test
+        FRONTEND_URL=http://localhost:5173
+        BACKEND_PORT=3001
+        
+        # Test Database URL
+        DATABASE_URL=postgresql://postgres:postgres@localhost:5432/foodflow_test
+        REDIS_URL=redis://localhost:6379
+        EOF
 
     # Backend Tests
     - name: Install backend dependencies
