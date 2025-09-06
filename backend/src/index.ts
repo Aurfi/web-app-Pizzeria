@@ -5,7 +5,10 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
 import { prettyJSON } from "hono/pretty-json";
-
+import { errorHandler } from "./middleware/errorHandler";
+import { apiRateLimit, authRateLimit } from "./middleware/rateLimit";
+import { securityHeaders } from "./middleware/security";
+import adminRoutes from "./routes/admin/index";
 import authRoutes from "./routes/auth";
 import healthRoutes from "./routes/health";
 import menuRoutes from "./routes/menu";
@@ -13,11 +16,6 @@ import orderRoutes from "./routes/order";
 import paymentRoutes from "./routes/payment";
 import restaurantRoutes from "./routes/restaurant";
 import userRoutes from "./routes/user";
-import adminRoutes from "./routes/admin/index";
-
-import { errorHandler } from "./middleware/errorHandler";
-import { apiRateLimit, authRateLimit } from "./middleware/rateLimit";
-import { securityHeaders } from "./middleware/security";
 
 dotenv.config();
 

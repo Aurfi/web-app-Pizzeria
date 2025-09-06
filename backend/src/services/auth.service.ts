@@ -48,10 +48,14 @@ export class AuthService {
 			algorithm: this.config.jwt.algorithm,
 		});
 
-		const refreshToken = (jwt.sign as any)({ ...payload, type: "refresh" }, this.config.jwt.secret, {
-			expiresIn: this.config.jwt.refreshExpiresIn,
-			algorithm: this.config.jwt.algorithm,
-		});
+		const refreshToken = (jwt.sign as any)(
+			{ ...payload, type: "refresh" },
+			this.config.jwt.secret,
+			{
+				expiresIn: this.config.jwt.refreshExpiresIn,
+				algorithm: this.config.jwt.algorithm,
+			},
+		);
 
 		// Store refresh token in Redis
 		await this.redis.setex(

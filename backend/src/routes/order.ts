@@ -8,62 +8,79 @@ const orders = new Hono();
 orders.use("*", authMiddleware);
 
 orders.post("/", async (c: AppContext) => {
-  try {
-    const userId = c.get("userId");
-    const body = await c.req.json();
-    const { deliveryAddressId, items, specialInstructions, promoCode } = body;
+	try {
+		const userId = c.get("userId");
+		const body = await c.req.json();
+		const { deliveryAddressId, items, specialInstructions, promoCode } = body;
 
-    if (!deliveryAddressId || !items || items.length === 0) {
-      return c.json({ error: "Missing required fields" }, 400);
-    }
+		if (!deliveryAddressId || !items || items.length === 0) {
+			return c.json({ error: "Missing required fields" }, 400);
+		}
 
-    // Enforce business hours
-    try {
-      const res = await pool.query(`SELECT value FROM business_settings WHERE key = 'business_hours'`);
-      const hours = res.rows.length > 0 ? res.rows[0].value : {
-        monday: { open: "11:00", close: "22:00", closed: false },
-        tuesday: { open: "11:00", close: "22:00", closed: false },
-        wednesday: { open: "11:00", close: "22:00", closed: false },
-        thursday: { open: "11:00", close: "22:00", closed: false },
-        friday: { open: "11:00", close: "23:00", closed: false },
-        saturday: { open: "11:00", close: "23:00", closed: false },
-        sunday: { open: "12:00", close: "21:00", closed: false }
-      };
+		// Enforce business hours
+		try {
+			const res = await pool.query(
+				`SELECT value FROM business_settings WHERE key = 'business_hours'`,
+			);
+			const hours =
+				res.rows.length > 0
+					? res.rows[0].value
+					: {
+							monday: { open: "11:00", close: "22:00", closed: false },
+							tuesday: { open: "11:00", close: "22:00", closed: false },
+							wednesday: { open: "11:00", close: "22:00", closed: false },
+							thursday: { open: "11:00", close: "22:00", closed: false },
+							friday: { open: "11:00", close: "23:00", closed: false },
+							saturday: { open: "11:00", close: "23:00", closed: false },
+							sunday: { open: "12:00", close: "21:00", closed: false },
+						};
 
-      const now = new Date();
-      const jsDay = now.getDay(); // 0=Sun..6=Sat
-      const dayKeys = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
-      const todayKey = dayKeys[(jsDay + 6) % 7];
-      const today = hours[todayKey] || { closed: true };
+			const now = new Date();
+			const jsDay = now.getDay(); // 0=Sun..6=Sat
+			const dayKeys = [
+				"monday",
+				"tuesday",
+				"wednesday",
+				"thursday",
+				"friday",
+				"saturday",
+				"sunday",
+			];
+			const todayKey = dayKeys[(jsDay + 6) % 7];
+			const today = hours[todayKey] || { closed: true };
 
-      const within = (() => {
-        const minutesNow = now.getHours()*60 + now.getMinutes();
-        if (today.closed) return false;
-        if (Array.isArray(today.intervals)) {
-          return today.intervals.some((i: any) => {
-            const [oh, om] = (i.open || '00:00').split(':').map(Number);
-            const [ch, cm] = (i.close || '00:00').split(':').map(Number);
-            const openM = oh*60 + om;
-            const closeM = ch*60 + cm;
-            return minutesNow >= openM && minutesNow < closeM;
-          });
-        }
-        // legacy single window
-        const [oh, om] = (today.open || '00:00').split(':').map(Number);
-        const [ch, cm] = (today.close || '00:00').split(':').map(Number);
-        const openM = oh*60 + om;
-        const closeM = ch*60 + cm;
-        return minutesNow >= openM && minutesNow < closeM;
-      })();
+			const within = (() => {
+				const minutesNow = now.getHours() * 60 + now.getMinutes();
+				if (today.closed) return false;
+				if (Array.isArray(today.intervals)) {
+					return today.intervals.some((i: any) => {
+						const [oh, om] = (i.open || "00:00").split(":").map(Number);
+						const [ch, cm] = (i.close || "00:00").split(":").map(Number);
+						const openM = oh * 60 + om;
+						const closeM = ch * 60 + cm;
+						return minutesNow >= openM && minutesNow < closeM;
+					});
+				}
+				// legacy single window
+				const [oh, om] = (today.open || "00:00").split(":").map(Number);
+				const [ch, cm] = (today.close || "00:00").split(":").map(Number);
+				const openM = oh * 60 + om;
+				const closeM = ch * 60 + cm;
+				return minutesNow >= openM && minutesNow < closeM;
+			})();
 
-      if (!within) {
-        const window = today.closed ? 'Fermé' : (Array.isArray(today.intervals) ? today.intervals.map((i: any) => `${i.open} - ${i.close}`).join(', ') : `${today.open || ''} - ${today.close || ''}`);
-        return c.json({ error: `Ordering is closed now. Today's hours: ${window}` }, 403);
-      }
-    } catch (e) {
-      // If hours check fails unexpectedly, proceed (fails open) but log
-      console.error('Business hours check failed:', e);
-    }
+			if (!within) {
+				const window = today.closed
+					? "Fermé"
+					: Array.isArray(today.intervals)
+						? today.intervals.map((i: any) => `${i.open} - ${i.close}`).join(", ")
+						: `${today.open || ""} - ${today.close || ""}`;
+				return c.json({ error: `Ordering is closed now. Today's hours: ${window}` }, 403);
+			}
+		} catch (e) {
+			// If hours check fails unexpectedly, proceed (fails open) but log
+			console.error("Business hours check failed:", e);
+		}
 
 		const client = await pool.connect();
 
@@ -114,12 +131,15 @@ orders.post("/", async (c: AppContext) => {
 			// Promo: 20% off for new customers with WELCOME20
 			let discountAmount = 0;
 			let promoApplied = false;
-			const normalizedCode = typeof promoCode === 'string' ? promoCode.trim().toUpperCase() : '';
-			if (normalizedCode === 'WELCOME20') {
-				const countRes = await client.query('SELECT COUNT(*)::int AS cnt FROM orders WHERE user_id = $1', [userId]);
+			const normalizedCode = typeof promoCode === "string" ? promoCode.trim().toUpperCase() : "";
+			if (normalizedCode === "WELCOME20") {
+				const countRes = await client.query(
+					"SELECT COUNT(*)::int AS cnt FROM orders WHERE user_id = $1",
+					[userId],
+				);
 				const orderCount = countRes.rows[0]?.cnt ?? 0;
 				if (orderCount === 0) {
-					discountAmount = parseFloat((subtotal * 0.20).toFixed(2));
+					discountAmount = parseFloat((subtotal * 0.2).toFixed(2));
 					promoApplied = true;
 				}
 			}

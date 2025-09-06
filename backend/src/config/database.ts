@@ -8,29 +8,30 @@ dotenv.config();
 const { Pool } = pg;
 
 // Check if we should use mock databases
-const useMockDatabase = process.env.DATABASE_URL === "memory://" || process.env.MOCK_DATABASE === "true";
+const useMockDatabase =
+	process.env.DATABASE_URL === "memory://" || process.env.MOCK_DATABASE === "true";
 const useMockRedis = process.env.REDIS_URL === "memory://" || process.env.MOCK_REDIS === "true";
 
 // Initialize database connection
-export const pool = useMockDatabase 
-  ? mockPool 
-  : new Pool({
-      connectionString: process.env.DATABASE_URL,
-      max: 20,
-      idleTimeoutMillis: 30000,
-      connectionTimeoutMillis: 2000,
-    });
+export const pool = useMockDatabase
+	? mockPool
+	: new Pool({
+			connectionString: process.env.DATABASE_URL,
+			max: 20,
+			idleTimeoutMillis: 30000,
+			connectionTimeoutMillis: 2000,
+		});
 
 // Initialize Redis connection
-export const redis = useMockRedis 
-  ? mockRedis 
-  : new Redis(process.env.REDIS_URL || "redis://localhost:6379", {
-      maxRetriesPerRequest: 3,
-      retryStrategy: (times: number) => {
-        const delay = Math.min(times * 50, 2000);
-        return delay;
-      },
-    });
+export const redis = useMockRedis
+	? mockRedis
+	: new Redis(process.env.REDIS_URL || "redis://localhost:6379", {
+			maxRetriesPerRequest: 3,
+			retryStrategy: (times: number) => {
+				const delay = Math.min(times * 50, 2000);
+				return delay;
+			},
+		});
 
 // Only add event listeners for real Redis connections
 if (!useMockRedis && redis instanceof Redis) {
@@ -52,7 +53,7 @@ export async function testDatabaseConnection() {
 			console.log("Mock database connected:", result.rows[0]);
 			return true;
 		} else {
-			const client = await (pool as any).connect();
+			const client = await pool.connect();
 			const result = await client.query("SELECT NOW()");
 			client.release();
 			console.log("Database connected:", result.rows[0]);
@@ -65,10 +66,10 @@ export async function testDatabaseConnection() {
 }
 
 export async function closeDatabaseConnections() {
-	if ('end' in pool) {
+	if ("end" in pool) {
 		await pool.end();
 	}
-	if ('quit' in redis) {
+	if ("quit" in redis) {
 		await redis.quit();
 	}
 }

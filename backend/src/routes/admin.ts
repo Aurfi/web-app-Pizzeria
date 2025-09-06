@@ -65,28 +65,31 @@ admin.get("/dashboard/stats", authMiddleware, async (c) => {
 
 		return c.json({
 			stats: {
-				ordersToday: parseInt(todayStats.count) || 0,
+				ordersToday: parseInt(todayStats.count, 10) || 0,
 				revenueToday: parseFloat(todayStats.revenue) || 0,
 				avgPreparationTime: Math.round(avgTime),
-				lowStockItems: parseInt(lowStock) || 0
+				lowStockItems: parseInt(lowStock, 10) || 0,
 			},
-			recentOrders: recentOrders.map(order => ({
+			recentOrders: recentOrders.map((order) => ({
 				id: order.id,
 				customerName: order.customer_name || "Invité",
 				items: Array.isArray(order.items) ? order.items : [],
 				total: parseFloat(order.total_amount),
 				status: order.status,
-				time: new Date(order.created_at).toLocaleTimeString('fr-FR', { 
-					hour: '2-digit', 
-					minute: '2-digit' 
-				})
-			}))
+				time: new Date(order.created_at).toLocaleTimeString("fr-FR", {
+					hour: "2-digit",
+					minute: "2-digit",
+				}),
+			})),
 		});
 	} catch (error) {
 		console.error("Error fetching dashboard stats:", error);
-		return c.json({ 
-			error: "Failed to fetch dashboard statistics" 
-		}, 500);
+		return c.json(
+			{
+				error: "Failed to fetch dashboard statistics",
+			},
+			500,
+		);
 	}
 });
 

@@ -38,7 +38,7 @@ export function csrfProtection(options: { excludePaths?: string[]; cookieOptions
 				path: "/",
 				httpOnly: true,
 				sameSite: "Strict",
-				secure: process.env.NODE_ENV === "production"
+				secure: process.env.NODE_ENV === "production",
 			});
 			c.header("X-CSRF-Token", token);
 			return next();
@@ -88,7 +88,7 @@ export function csrfTokenEndpoint() {
 			path: "/",
 			httpOnly: true,
 			sameSite: "Strict",
-			secure: process.env.NODE_ENV === "production"
+			secure: process.env.NODE_ENV === "production",
 		});
 
 		// Return token in response

@@ -94,7 +94,7 @@ auth.post("/login", validate(loginSchema), async (c: AppContext) => {
 				firstName: user.first_name,
 				lastName: user.last_name,
 				phone: user.phone,
-				role: 'admin',
+				role: "admin",
 			},
 			accessToken,
 			refreshToken,

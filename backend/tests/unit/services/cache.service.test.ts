@@ -30,9 +30,9 @@ describe("CacheService", () => {
 				}
 				return mockRedis;
 			}),
-		} as any;
+		} as unknown as typeof redis;
 
-		cacheService = new CacheService(mockRedis as any, "test:", 3600);
+		cacheService = new CacheService(mockRedis as unknown as typeof redis, "test:", 3600);
 
 		// Wait for connection event
 		return new Promise((resolve) => setTimeout(resolve, 10));

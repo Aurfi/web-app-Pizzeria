@@ -25,7 +25,11 @@ export async function authMiddleware(c: AppContext, next: Next) {
 			return c.json({ error: "Token has been revoked" }, 401);
 		}
 
-		const payload = jwt.verify(token, process.env.JWT_SECRET!) as JWTPayload;
+		const jwtSecret = process.env.JWT_SECRET;
+		if (!jwtSecret) {
+			return c.json({ error: "Server configuration error" }, 500);
+		}
+		const payload = jwt.verify(token, jwtSecret) as JWTPayload;
 
 		c.set("userId", payload.userId);
 		c.set("userEmail", payload.email);
@@ -51,9 +55,12 @@ export async function optionalAuthMiddleware(c: AppContext, next: Next) {
 
 			const blacklisted = await redis.get(`blacklist_${token}`);
 			if (!blacklisted) {
-				const payload = jwt.verify(token, process.env.JWT_SECRET!) as JWTPayload;
-				c.set("userId", payload.userId);
-				c.set("userEmail", payload.email);
+				const jwtSecret = process.env.JWT_SECRET;
+				if (jwtSecret) {
+					const payload = jwt.verify(token, jwtSecret) as JWTPayload;
+					c.set("userId", payload.userId);
+					c.set("userEmail", payload.email);
+				}
 			}
 		}
 
@@ -64,11 +71,18 @@ export async function optionalAuthMiddleware(c: AppContext, next: Next) {
 }
 
 export function generateTokens(userId: string, email: string) {
-	const accessToken = jwt.sign({ userId, email }, process.env.JWT_SECRET!, {
+	const jwtSecret = process.env.JWT_SECRET;
+	const jwtRefreshSecret = process.env.JWT_REFRESH_SECRET;
+
+	if (!jwtSecret || !jwtRefreshSecret) {
+		throw new Error("JWT secrets are not configured");
+	}
+
+	const accessToken = jwt.sign({ userId, email }, jwtSecret, {
 		expiresIn: process.env.JWT_EXPIRES_IN || "15m",
 	} as jwt.SignOptions);
 
-	const refreshToken = jwt.sign({ userId, email }, process.env.JWT_REFRESH_SECRET!, {
+	const refreshToken = jwt.sign({ userId, email }, jwtRefreshSecret, {
 		expiresIn: process.env.JWT_REFRESH_EXPIRES_IN || "7d",
 	} as jwt.SignOptions);
 

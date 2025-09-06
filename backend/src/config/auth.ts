@@ -48,7 +48,7 @@ export interface SSOUser {
 	email_verified?: boolean;
 	groups?: string[];
 	roles?: string[];
-	[key: string]: any;
+	[key: string]: string | string[] | boolean | undefined;
 }
 
 export interface TokenPayload extends JwtPayload {
@@ -77,7 +77,7 @@ export function loadAuthConfig(): AuthConfig {
 		},
 		sso: {
 			enabled: process.env.SSO_ENABLED === "true",
-			provider: (process.env.SSO_PROVIDER as any) || "none",
+			provider: (process.env.SSO_PROVIDER as "authentik" | "keycloak" | "auth0" | "none") || "none",
 			baseUrl: process.env.SSO_BASE_URL,
 			realm: process.env.SSO_REALM,
 			clientId: process.env.SSO_CLIENT_ID,
