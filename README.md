@@ -1,6 +1,6 @@
-# Modern PWA Demo - Mobile-First Web Application
+# PWA - Mobile-First Web Application - Pizza Store
 
-A comprehensive Progressive Web Application showcasing 2025 web development best practices, including offline capabilities, real-time features, CI/CD deployment, and business customization framework.
+A comprehensive Progressive Web Application, including offline capabilities, real-time features, CI/CD deployment, and business customization framework.
 
 ## 🚀 Quick Run
 
